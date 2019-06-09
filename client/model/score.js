@@ -4,15 +4,12 @@ var SCORE = {
 	top: 0,
 	bottom: 0,
 	draw: () => {
+		context.font = '23px Arial';
 		context.fillStyle = '#222';
-		context.fillText('left: '+SCORE.left, ((CANVAS.width/4)*0)+(CANVAS.width/4)*0.25,
-			CANVAS.y + 10);
-		context.fillText('right: '+SCORE.right, ((CANVAS.width/4)*1)+(CANVAS.width/4)*0.25,
-			CANVAS.y + 10);
-		context.fillText('top: '+SCORE.top, ((CANVAS.width/4)*2)+(CANVAS.width/4)*0.25,
-			CANVAS.y + 10);
-		context.fillText('bottom: '+SCORE.bottom, ((CANVAS.width/4)*3)+(CANVAS.width/4)*0.25,
-			CANVAS.y + 10);
+		context.fillText(SCORE.left, ((CANVAS.width/2)*0)+(CANVAS.width/2)*0.5,
+			CANVAS.y + 30);
+		context.fillText(SCORE.right, ((CANVAS.width/2)*1)+(CANVAS.width/2)*0.5,
+			CANVAS.y + 30);
 	},
 	update: (data) => {
 		if(data=='left'){

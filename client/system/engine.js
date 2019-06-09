@@ -14,11 +14,13 @@ const ENGINESTATE = {
 		},
 		render: () => {
 			if(ENGINESTATE.status=='playing'){
-				scoreController.render();
+				pitchController.render();
 				playerController.render();
 				playersController.render();
+				scoreController.render();
 			};
 			if(ENGINESTATE.status=='paused'){
+				pitchController.render();
 				playerController.render();
 				playersController.render();
 			};

@@ -35,10 +35,10 @@ html, body {
 
 canvas, #load-game, #main-menu, #pause-menu, #game-over {
   position: absolute;
-  width: 400px;
+  width: 901px;
   height: 400px;
   left: 50%;
   top: 50%;
-  margin-left:-200px;
+  margin-left:-450px;
   margin-top:-200px;
 }

@@ -4,7 +4,7 @@ const GAMESTATE = {
 		ENGINE.loop()
 		cancelAnimationFrame(animation);
 		// show loading page
-		let loadingTime = 3;
+		let loadingTime = 1;
 		let loadAnimation = 0;
 		document.getElementById('load-msg').innerHTML += "Loading.";
 		let interval = setInterval(() => {

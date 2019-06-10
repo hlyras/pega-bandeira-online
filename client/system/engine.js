@@ -18,6 +18,7 @@ const ENGINESTATE = {
 				playerController.render();
 				playersController.render();
 				scoreController.render();
+				// hudController.render();
 			};
 			if(ENGINESTATE.status=='paused'){
 				pitchController.render();

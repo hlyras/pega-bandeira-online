@@ -1,7 +1,8 @@
-const Player = function(id, username) {
+const Player = function(id, username, team) {
 	this.id = id;
 	this.username = username;
-	this.team = 'TEAM_A';
+	this.team = team;
+	this.connection = 'connected';
 	this.x = 10;
 	this.y = 10;
 	this.r = 10;
@@ -20,7 +21,7 @@ const Player = function(id, username) {
 			context.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
 			context.fill();
 		} else if(this.team=='TEAM_B'){
-			context.fillStyle = '#6e78ff';
+			context.fillStyle = '#5a5aff';
 			context.beginPath();
 			context.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
 			context.fill();
@@ -113,10 +114,12 @@ const Player = function(id, username) {
 		};
 	};
 	this.spawn = () => {
-		this.x = random(0, CANVAS.width-this.r);
-		this.y = random(0, CANVAS.height-this.r);
-		this.dirX = random(1, this.speed);
-		this.dirY = random(1, this.speed);
+		if(this.team=='TEAM_A'){
+			this.x = random(PITCH.sideA.x + PITCH.sideA.width + this.r, PITCH.line.x - this.r);
+		} else if(this.team=='TEAM_B'){
+			this.x = random(PITCH.line.x + PITCH.line.width + this.r, PITCH.sideB.x - this.r);
+		};
+		this.y = random(CANVAS.y + this.r, CANVAS.height - this.r);
 	};
 	this.playersContact = () => {
 		for(i in players){

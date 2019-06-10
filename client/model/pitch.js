@@ -25,12 +25,12 @@ const PITCH = {
 	},
 	draw: () => {
 		context.fillStyle = '#a0fb9d';
-		context.fillRect(PITCH.center.x,PITCH.center.y,PITCH.center.width,PITCH.center.height);
+		context.fillRect(PITCH.center.x, PITCH.center.y, PITCH.center.width, PITCH.center.height);
 		context.fillStyle = '#ff5a5a';
-		context.fillRect(PITCH.sideA.x,PITCH.sideA.y,PITCH.sideA.width,PITCH.sideA.height);
-		context.fillStyle = '#6e78ff';
-		context.fillRect(PITCH.sideB.x,PITCH.sideB.y,PITCH.sideB.width,PITCH.sideB.height);
+		context.fillRect(PITCH.sideA.x, PITCH.sideA.y, PITCH.sideA.width, PITCH.sideA.height);
+		context.fillStyle = '#5a5aff';
+		context.fillRect(PITCH.sideB.x, PITCH.sideB.y, PITCH.sideB.width, PITCH.sideB.height);
 		context.fillStyle = '#000';
-		context.fillRect(PITCH.line.x,PITCH.line.y,PITCH.line.width,PITCH.line.height);
+		context.fillRect(PITCH.line.x, PITCH.line.y, PITCH.line.width, PITCH.line.height);
 	}
 };

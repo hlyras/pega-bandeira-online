@@ -10,7 +10,7 @@ const io = require('socket.io')(server);
 
 const Room = function(){
 	this.players = [];
-	this.maxLenght = 3;
+	this.maxLenght = 6;
 };
 
 var rooms = [];
@@ -19,16 +19,27 @@ rooms.push(new Room());
 io.on('connection', (socket) => {
 	socket.on('connected', (username) => {
 		socket.username = username;
-
-		socket.emit('my player', {id:socket.id, username:socket.username});
 	});
 
-	socket.on('join room', (data) => {
+	socket.on('join room', () => {
 		let room = 0;
 		for(i in rooms){
 			if(rooms[i].players.length < rooms[i].maxLenght){
 				socket.room = i;
-				rooms[i].players.push({id: socket.id, username: socket.username, x: data.x, y: data.y, r: data.r, room: socket.room});
+
+				let team_a = 0;
+				for(y in rooms[i].players){
+					if(rooms[i].players[y].team=='TEAM_A'){
+						++team_a;
+					};
+				};
+				if(team_a < 3){
+					rooms[i].players.push({id: socket.id, username: socket.username, connection: 'connected', team: 'TEAM_A', room: socket.room});
+					socket.emit('my player', {id: socket.id, username: socket.username, team: 'TEAM_A'});
+				} else {
+					rooms[i].players.push({id: socket.id, username: socket.username, connection: 'connected', team: 'TEAM_B', room: socket.room});
+					socket.emit('my player', {id: socket.id, username: socket.username, team: 'TEAM_B'});
+				};
 				if(rooms[i].players.length == rooms[i].maxLenght){
 					rooms.push(new Room());
 				};
@@ -42,8 +53,12 @@ io.on('connection', (socket) => {
 			socket.broadcast.to(socket.room).emit('new player', rooms[socket.room].players);
 
 			if(rooms[socket.room].players.length == rooms[socket.room].maxLenght){
-				socket.emit('start game');
-				socket.broadcast.to(socket.room).emit('start game');
+				socket.emit('start warning');
+				socket.broadcast.to(socket.room).emit('start warning');
+				setTimeout(() => {
+					socket.emit('start game');
+					socket.broadcast.to(socket.room).emit('start game');
+				},3000);
 			};
 
 			socket.on('update player', data => {
@@ -51,12 +66,12 @@ io.on('connection', (socket) => {
 			});
 
 			socket.on('disconnect', async () => {
-				socket.broadcast.to(socket.room).emit('user left', socket.username+' saiu da sala.');
-				
-				rooms[socket.room].players = rooms[socket.room].players.filter(function(player) { return player.id != socket.id });
-				
-				socket.emit('new player', rooms[socket.room].players);
-				socket.broadcast.to(socket.room).emit('new player', rooms[socket.room].players);
+				if(rooms[socket.room].players.length < rooms[socket.room].maxLenght){
+					rooms[socket.room].players = rooms[socket.room].players.filter(function(player) { return player.id != socket.id });
+					socket.broadcast.to(socket.room).emit('user left room', {id: socket.id});
+				} else {
+					socket.broadcast.to(socket.room).emit('user left', {id: socket.id, connection: 'disconnected'});
+				};
 			});
 		});
 	});

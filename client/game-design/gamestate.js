@@ -1,10 +1,10 @@
 const GAMESTATE = {
-	loadGame: () => {
-		// Start and stop engine to create instance
+	startEngine: () => {
+		// Start and stop engine to create animation instance
 		ENGINE.loop()
 		cancelAnimationFrame(animation);
 		// show loading page
-		let loadingTime = 1;
+		let loadingTime = 3;
 		let loadAnimation = 0;
 		document.getElementById('load-msg').innerHTML += "Loading.";
 		let interval = setInterval(() => {
@@ -20,36 +20,51 @@ const GAMESTATE = {
 				clearInterval(interval);
 				GAMESTATE.login();
 			};
-		}, 1000);
+		}, 500);
 	},
 	login: () => {
 		cancelAnimationFrame(animation);
 		
-		LOAD_GAME.style.display = 'none';
+		LOAD_ENGINE.style.display = 'none';
 		LOGIN.style.display = 'block';
 		CANVAS.style.display = 'none';
 		MAIN_MENU.style.display = 'none';
+		LOAD_GAME.style.display = 'none';
 		PAUSE_MENU.style.display = 'none';
 		GAME_OVER.style.display = 'none';
 	},
 	menu: () => {
 		cancelAnimationFrame(animation);
 		
-		LOAD_GAME.style.display = 'none';
+		LOAD_ENGINE.style.display = 'none';
 		LOGIN.style.display = 'none';
 		CANVAS.style.display = 'none';
 		MAIN_MENU.style.display = 'block';
+		LOAD_GAME.style.display = 'none';
+		PAUSE_MENU.style.display = 'none';
+		GAME_OVER.style.display = 'none';
+	},
+	loadGame: () => {
+		cancelAnimationFrame(animation);
+		
+		LOAD_ENGINE.style.display = 'none';
+		LOGIN.style.display = 'none';
+		CANVAS.style.display = 'none';
+		MAIN_MENU.style.display = 'none';
+		LOAD_GAME.style.display = 'block';
 		PAUSE_MENU.style.display = 'none';
 		GAME_OVER.style.display = 'none';
 	},
 	playing: () => {
 		ENGINESTATE.status = 'playing';
 		
-		LOAD_GAME.style.display = 'none';
+		LOAD_ENGINE.style.display = 'none';
 		LOGIN.style.display = 'none';
 		CANVAS.style.display = 'block';
 		MAIN_MENU.style.display = 'none';
+		LOAD_GAME.style.display = 'none';
 		PAUSE_MENU.style.display = 'none';
+		GAME_HUD.style.display = 'block';
 		GAME_OVER.style.display = 'none';
 		
 		cancelAnimationFrame(animation);
@@ -59,10 +74,11 @@ const GAMESTATE = {
 		if(ENGINESTATE.status == 'playing'){
 			ENGINESTATE.status = 'paused';
 			
-			LOAD_GAME.style.display = 'none';
+			LOAD_ENGINE.style.display = 'none';
 			LOGIN.style.display = 'none';
 			CANVAS.style.display = 'block';
 			MAIN_MENU.style.display = 'none';
+			LOAD_GAME.style.display = 'none';
 			PAUSE_MENU.style.display = 'block';
 			GAME_OVER.style.display = 'none';
 		} else if(ENGINESTATE.status == 'paused'){
@@ -72,10 +88,11 @@ const GAMESTATE = {
 	over: () => {
 		cancelAnimationFrame(animation);
 
-		LOAD_GAME.style.display = 'none';
+		LOAD_ENGINE.style.display = 'none';
 		LOGIN.style.display = 'none';
 		CANVAS.style.display = 'block';
 		MAIN_MENU.style.display = 'none';
+		LOAD_GAME.style.display = 'none';
 		PAUSE_MENU.style.display = 'none';
 		GAME_OVER.style.display = 'block';
 
@@ -83,7 +100,6 @@ const GAMESTATE = {
 			GAMESTATE.menu();
 		}, 2000);
 	}
-		
 };
 
-GAMESTATE.loadGame();
+GAMESTATE.startEngine();

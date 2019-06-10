@@ -6,10 +6,8 @@ var SCORE = {
 	draw: () => {
 		context.font = '23px Arial';
 		context.fillStyle = '#222';
-		context.fillText(SCORE.left, ((CANVAS.width/2)*0)+(CANVAS.width/2)*0.5,
-			CANVAS.y + 30);
-		context.fillText(SCORE.right, ((CANVAS.width/2)*1)+(CANVAS.width/2)*0.5,
-			CANVAS.y + 30);
+		context.fillText(SCORE.left, ((CANVAS.width/2)*0)+(CANVAS.width/2)*0.5, CANVAS.y + 30);
+		context.fillText(SCORE.right, ((CANVAS.width/2)*1)+(CANVAS.width/2)*0.5, CANVAS.y + 30);
 	},
 	update: (data) => {
 		if(data=='left'){

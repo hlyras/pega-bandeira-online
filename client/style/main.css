@@ -33,7 +33,7 @@ html, body {
   width: 100%;
 }
 
-canvas, #load-game, #main-menu, #pause-menu, #game-over {
+canvas, #load-engine, #main-menu, #load-game, #game-HUD, #pause-menu, #game-over  {
   position: absolute;
   width: 901px;
   height: 400px;

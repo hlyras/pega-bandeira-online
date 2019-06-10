@@ -4,17 +4,19 @@
 	<meta charset="utf-8">
 	<title>Basic online game engine</title>
 	<link rel="stylesheet" type="text/css" href="style/main.css">
-	<link rel="stylesheet" type="text/css" href="style/load-game.css">
+	<link rel="stylesheet" type="text/css" href="style/load-engine.css">
 	<link rel="stylesheet" type="text/css" href="style/login.css">
+	<link rel="stylesheet" type="text/css" href="style/load-game.css">
 	<link rel="stylesheet" type="text/css" href="style/main-menu.css">
 	<link rel="stylesheet" type="text/css" href="style/pause-menu.css">
+	<link rel="stylesheet" type="text/css" href="style/game-HUD.css">
 	<link rel="stylesheet" type="text/css" href="style/game-over.css">
 	<script src='/socket.io/socket.io.js'></script>
 	<script>const socket = io.connect();</script>
 </head>
 <body>
 	<!-- LOAD GAME -->
-	<div id="load-game">
+	<div id="load-engine">
 		<div id='engine-msg'>
 			<h1>ONLINE NODEJS GAME ENGINE</h1>
 			<h6>Made by Lyra</h6>
@@ -41,6 +43,15 @@
 		<button onclick='enterRoom()' id='game-start-btn'>INICIAR ENGINE</button>
 	</div>
 
+	<!-- LOADING GAME SCREEN -->
+	<div id="load-game" style="display:none">
+		<h2>Aguardando outros jogadores...</h2>
+		<h4>Você está conectado</h4>
+		<div id='connected-players'>
+			
+		</div>
+	</div>
+
 	<!-- GAME CANVAS -->
 	<canvas style='display:none'></canvas>
 
@@ -48,6 +59,10 @@
 	<div id="pause-menu" style="display:none">
 		<h4>PAUSE</h4>
 		<button onclick='endGame()'>MENU PRINCIPAL</button>
+	</div>
+
+	<div id="game-HUD" style="display:none">
+		<div class="team-a"></div>
 	</div>
 
 	<div id="game-over" style="display:none">
@@ -62,11 +77,13 @@
 <script src='model/player.js'></script>
 <script src='model/pitch.js'></script>
 <script src='model/score.js'></script>
+<script src='model/HUD.js'></script>
 <!-- controllers -->
 <script src='controller/player.js'></script>
 <script src='controller/players.js'></script>
 <script src='controller/pitch.js'></script>
 <script src='controller/score.js'></script>
+<script src='controller/HUD.js'></script>
 <!-- system -->
 <script src='system/global-config.js'></script>
 <!-- engine -->

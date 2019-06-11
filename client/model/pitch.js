@@ -24,14 +24,13 @@ const PITCH = {
 		height: CANVAS.height
 	},
 	draw: () => {
-		context.fillStyle = 'rgba(40, 70, 56, 0.25)';
-		// context.fillStyle = '#a0fb9d';
+		context.fillStyle = 'rgba(20, 20, 20, 0.25)';
 		context.fillRect(PITCH.center.x, PITCH.center.y, PITCH.center.width, PITCH.center.height);
-		context.fillStyle = '#ff5a5a';
+		context.fillStyle = 'rgba(88, 33, 33, 0.25)';
 		context.fillRect(PITCH.sideA.x, PITCH.sideA.y, PITCH.sideA.width, PITCH.sideA.height);
-		context.fillStyle = '#5a5aff';
+		context.fillStyle = 'rgba(33, 33, 88, 0.25)';
 		context.fillRect(PITCH.sideB.x, PITCH.sideB.y, PITCH.sideB.width, PITCH.sideB.height);
-		context.fillStyle = '#000';
+		context.fillStyle = '#555';
 		context.fillRect(PITCH.line.x, PITCH.line.y, PITCH.line.width, PITCH.line.height);
 	}
 };

@@ -3,10 +3,11 @@ const Player = function(id, username, team) {
 	this.username = username;
 	this.team = team;
 	this.connection = true;
+	this.score = 0;
 	this.x = 10;
 	this.y = 10;
 	this.r = 17;
-	this.speed = 0.25;
+	this.speed = 0.2;
 	this.maxSpeed = 2.5;
 	this.dirX = 0;
 	this.dirY = 0;
@@ -123,18 +124,26 @@ const Player = function(id, username, team) {
 				let dy = Math.abs(this.y - players[i].y);
 				let dd = this.r + players[i].r;
 				if(dd*dd >= (dx*dx)+(dy*dy)) {
+					if(FLAG.TEAM_B.player == this.id){
+						FLAG.TEAM_B.spawn();
+					};
 					this.spawn();
 					SCORE.TEAM_B++;
-					socket.emit('update score', {TEAM_A: SCORE.TEAM_A, TEAM_B: SCORE.TEAM_B});
+					players[i].score++;
+					socket.emit('update score', {TEAM_A: SCORE.TEAM_A, TEAM_B: SCORE.TEAM_B, id: players[i].id});
 				};
 			} else if(this.team == 'TEAM_B' && players[i].team == 'TEAM_A' && this.x + this.r < PITCH.line.x){
 				let dx = Math.abs(this.x - players[i].x);
 				let dy = Math.abs(this.y - players[i].y);
 				let dd = this.r + players[i].r;
 				if(dd*dd >= (dx*dx)+(dy*dy)) {
+					if(FLAG.TEAM_A.player == this.id){
+						FLAG.TEAM_A.spawn();
+					};
 					this.spawn();
 					SCORE.TEAM_A++;
-					socket.emit('update score', {TEAM_A: SCORE.TEAM_A, TEAM_B: SCORE.TEAM_B});
+					players[i].score++;
+					socket.emit('update score', {TEAM_A: SCORE.TEAM_A, TEAM_B: SCORE.TEAM_B, id: players[i].id});
 				};
 			};
 		};
@@ -175,4 +184,9 @@ const Player = function(id, username, team) {
 	this.update = () => {
 		socket.emit('update player', {id: this.id, x: this.x, y: this.y, r: this.r});
 	};
+	this.reset = () => {
+		this.score = 0;
+		this.dirX = 0;
+		this.dirY = 0;
+	}
 };

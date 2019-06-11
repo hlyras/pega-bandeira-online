@@ -1,5 +1,6 @@
 const GAMESTATE = {
 	startEngine: () => {
+		ENGINESTATE.status = 'loading-game';
 		// Start and stop engine to create animation instance
 		ENGINE.loop()
 		cancelAnimationFrame(animation);
@@ -18,12 +19,19 @@ const GAMESTATE = {
 			};
 			if(loadingTime<1){
 				clearInterval(interval);
-				GAMESTATE.login();
+				let username = localStorage.getItem('username');
+				if(!username){
+					GAMESTATE.login();
+				} else {
+					socket.emit('connected', username);
+					GAMESTATE.menu();
+				};
 			};
 		}, 500);
 	},
 	login: () => {
 		cancelAnimationFrame(animation);
+		ENGINESTATE.status = 'login';
 		
 		LOAD_ENGINE.style.display = 'none';
 		LOGIN.style.display = 'block';
@@ -35,6 +43,7 @@ const GAMESTATE = {
 	},
 	menu: () => {
 		cancelAnimationFrame(animation);
+		ENGINESTATE.status = 'menu';
 		
 		LOAD_ENGINE.style.display = 'none';
 		LOGIN.style.display = 'none';
@@ -46,6 +55,7 @@ const GAMESTATE = {
 	},
 	loadGame: () => {
 		cancelAnimationFrame(animation);
+		ENGINESTATE.status = 'loading';
 		
 		LOAD_ENGINE.style.display = 'none';
 		LOGIN.style.display = 'none';
@@ -64,7 +74,6 @@ const GAMESTATE = {
 		MAIN_MENU.style.display = 'none';
 		LOAD_GAME.style.display = 'none';
 		PAUSE_MENU.style.display = 'none';
-		GAME_HUD.style.display = 'block';
 		GAME_OVER.style.display = 'none';
 		
 		cancelAnimationFrame(animation);
@@ -86,7 +95,7 @@ const GAMESTATE = {
 		};
 	},
 	over: () => {
-		cancelAnimationFrame(animation);
+		ENGINESTATE.status = 'over';
 
 		LOAD_ENGINE.style.display = 'none';
 		LOGIN.style.display = 'none';
@@ -95,10 +104,7 @@ const GAMESTATE = {
 		LOAD_GAME.style.display = 'none';
 		PAUSE_MENU.style.display = 'none';
 		GAME_OVER.style.display = 'block';
-
-		setTimeout(() => {
-			GAMESTATE.menu();
-		}, 2000);
+		showResult();
 	}
 };
 

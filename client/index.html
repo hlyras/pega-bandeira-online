@@ -2,14 +2,13 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Basic online game engine</title>
+	<title>Flags</title>
 	<link rel="stylesheet" type="text/css" href="style/main.css">
 	<link rel="stylesheet" type="text/css" href="style/load-engine.css">
 	<link rel="stylesheet" type="text/css" href="style/login.css">
 	<link rel="stylesheet" type="text/css" href="style/load-game.css">
 	<link rel="stylesheet" type="text/css" href="style/main-menu.css">
 	<link rel="stylesheet" type="text/css" href="style/pause-menu.css">
-	<link rel="stylesheet" type="text/css" href="style/game-HUD.css">
 	<link rel="stylesheet" type="text/css" href="style/game-over.css">
 	<script src='/socket.io/socket.io.js'></script>
 	<script>const socket = io.connect();</script>
@@ -18,8 +17,7 @@
 	<!-- LOAD GAME -->
 	<div id="load-engine">
 		<div id='engine-msg'>
-			<h1>ONLINE NODEJS GAME ENGINE</h1>
-			<h6>Made by Lyra</h6>
+			<h1>FLAGS</h1>
 		</div>
 		<h5 id='load-msg'></h5>
 	</div>
@@ -40,7 +38,12 @@
 	<!-- MAIN MENU -->
 	<div id="main-menu" style="display:none">
 		<h3>MENU PRINCIPAL</h3>
-		<button onclick='enterRoom()' id='game-start-btn'>INICIAR ENGINE</button>
+		<div>
+			<button class='btn-menu' onclick='joinRoom()' id='game-start-btn'>Buscar partida</button>
+		</div>
+		<div>
+			<button class='btn-menu' onclick='GAMESTATE.login()' id='game-start-btn'>Alterar nickname</button>
+		</div>
 	</div>
 
 	<!-- LOADING GAME SCREEN -->
@@ -61,12 +64,16 @@
 		<button onclick='endGame()'>MENU PRINCIPAL</button>
 	</div>
 
-	<div id="game-HUD" style="display:none">
-		<div class="team-a"></div>
-	</div>
-
-	<div id="game-over" style="display:none">
-		<h4>GAME OVER</h4>
+	<div id="game-over"  style="display:none">
+		<div id='result'></div>
+		<div id='score'></div>
+		<div id='teams'>
+			<div id="team-a"></div>
+			<div id="team-b"></div>
+		</div>
+		<div>
+			<h3>Pressione Enter para voltar</h3>
+		</div>
 	</div>
 </body>
 <!-- own lib -->
@@ -88,6 +95,7 @@
 <script src='controller/HUD.js'></script>
 <!-- system -->
 <script src='system/global-config.js'></script>
+<script src='system/views.js'></script>
 <!-- engine -->
 <script src='system/engine.js'></script>
 <!-- game design -->
@@ -95,6 +103,7 @@
 <script src='game-design/login.js'></script>
 <script src='game-design/main-menu.js'></script>
 <script src='game-design/ingame.js'></script>
+<script src='game-design/game-over.js'></script>
 <script src='game-design/keys.js'></script>
 <!-- socket.io connection -->
 <script src='socket.js'></script>

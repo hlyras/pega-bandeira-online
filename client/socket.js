@@ -17,6 +17,9 @@ socket.on('new player', data => {
 });
 
 socket.on('start warning', () => {
+	player.reset();
+	SCORE.reset();
+	FLAG.reset();
 	player.spawn();
 	socket.emit('update player', {id: player.id, x: player.x, y: player.y, r: player.r});
 	connected_players.innerHTML += '<h3>O jogo vai começar, prepare-se!</h3>';
@@ -49,21 +52,46 @@ socket.on('update FLAG_B', data => {
 });
 
 socket.on('update score', data => {
+	for(i in players){
+		if(players[i].id == data.id){
+			players[i].score++;
+		}
+	};
+	if(data.id == player.id){
+		player.score++;
+	};
 	SCORE.TEAM_A = data.TEAM_A;
 	SCORE.TEAM_B = data.TEAM_B;
 });
 
-socket.on('user left room', (data) => {
-	let connectedPlayers = [];
+socket.on('touchdown', data => {
 	for(i in players){
-		if(data.id != players[i].id){
-			connectedPlayers.push(players[i]);
+		if(players[i].id == data.id){
+			players[i].score += 3;
 		};
 	};
-	players = connectedPlayers;
-	connected_players.innerHTML = '';
-	for(i in players){
-		connected_players.innerHTML += '<h4>'+players[i].username+' conectou</h4>';
+	SCORE.TEAM_A = data.TEAM_A;
+	SCORE.TEAM_B = data.TEAM_B;
+});
+
+socket.on('game over', () => {
+	socket.emit('leave room');
+	endGame();
+});
+
+socket.on('user left room', (data) => {
+	if(ENGINESTATE.status!='over'){
+		let connectedPlayers = [];
+		for(i in players){
+			if(data.id != players[i].id){
+				connectedPlayers.push(players[i]);
+			};
+		};
+		players = connectedPlayers;
+		connected_players.innerHTML = '';
+		for(i in players){
+			connected_players.innerHTML += '<h4>'+players[i].username+' conectou</h4>';
+		};
 	};
 });
 

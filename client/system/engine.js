@@ -29,9 +29,7 @@ const ENGINESTATE = {
 				flagController.render();
 			};
 			if(ENGINESTATE.status=='over'){
-				context.fillStyle = 'black';
-				context.font = "30px Arial";
-				context.fillText('over...', CANVAS.width / 2 - 55, CANVAS.height / 2 - 15);
+				pitchController.render();
 			};
 		}
 	}

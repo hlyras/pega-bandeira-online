@@ -1,4 +1,4 @@
-function endGame(){
+function endGame(data){
 	GAMESTATE.over();
-	SCORE.reset()
+	showResult(data);
 };

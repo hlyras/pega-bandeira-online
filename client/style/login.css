@@ -36,6 +36,10 @@
   color: white;
 }
 
+.login.page .form .confirmButton:hover {
+  background-color: #111;
+}
+
 .login.page .title {
   font-size: 200%;
 }

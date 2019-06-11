@@ -9,3 +9,9 @@ window.addEventListener('keyup', (e) => {
 		player.onKeyUp(e.keyCode);
 	};
 });
+
+window.addEventListener('keydown', (e) => {
+	if(ENGINESTATE.status == 'over' && e.keyCode == '13'){
+		window.location.href = '/';
+	};
+});

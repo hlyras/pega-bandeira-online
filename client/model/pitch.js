@@ -24,7 +24,8 @@ const PITCH = {
 		height: CANVAS.height
 	},
 	draw: () => {
-		context.fillStyle = '#a0fb9d';
+		context.fillStyle = 'rgba(40, 70, 56, 0.25)';
+		// context.fillStyle = '#a0fb9d';
 		context.fillRect(PITCH.center.x, PITCH.center.y, PITCH.center.width, PITCH.center.height);
 		context.fillStyle = '#ff5a5a';
 		context.fillRect(PITCH.sideA.x, PITCH.sideA.y, PITCH.sideA.width, PITCH.sideA.height);
@@ -34,3 +35,13 @@ const PITCH = {
 		context.fillRect(PITCH.line.x, PITCH.line.y, PITCH.line.width, PITCH.line.height);
 	}
 };
+
+// transparent rgba(40, 48, 56, 0.25)
+
+// var pitch_background = new Image();
+// pitch_background.src = 'images/pitch_background.png';
+// assets.db.push(pitch_background);
+
+// pitch_background.onload = function(){
+//     ++assets.loaded;
+// };

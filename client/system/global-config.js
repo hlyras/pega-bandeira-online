@@ -1,5 +1,9 @@
 var player;
 var players = [];
+const assets = {
+	db: [],
+	loaded: 0
+};
 
 // setting views elements
 const LOAD_ENGINE = document.getElementById('load-engine');

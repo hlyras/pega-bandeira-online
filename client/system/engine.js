@@ -4,6 +4,7 @@ const ENGINESTATE = {
 		exe: () => {
 			if(ENGINESTATE.status=='playing'){
 				playerController.exe();
+				flagController.exe();
 			};
 			if(ENGINESTATE.status=='paused'){
 
@@ -18,12 +19,14 @@ const ENGINESTATE = {
 				playerController.render();
 				playersController.render();
 				scoreController.render();
+				flagController.render();
 				// hudController.render();
 			};
 			if(ENGINESTATE.status=='paused'){
 				pitchController.render();
 				playerController.render();
 				playersController.render();
+				flagController.render();
 			};
 			if(ENGINESTATE.status=='over'){
 				context.fillStyle = 'black';
@@ -45,7 +48,7 @@ const ENGINE = {
 		ENGINESTATE.system.exe();
 	},
 	render: () => {
-		CANVAS.draw();
+		// CANVAS.draw();
 		ENGINESTATE.system.render();
 	}
 };

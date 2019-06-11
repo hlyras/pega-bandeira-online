@@ -34,10 +34,10 @@ io.on('connection', (socket) => {
 					};
 				};
 				if(team_a < 3){
-					rooms[i].players.push({id: socket.id, username: socket.username, connection: 'connected', team: 'TEAM_A', room: socket.room});
+					rooms[i].players.push({id: socket.id, username: socket.username, connection: true, team: 'TEAM_A', room: socket.room});
 					socket.emit('my player', {id: socket.id, username: socket.username, team: 'TEAM_A'});
 				} else {
-					rooms[i].players.push({id: socket.id, username: socket.username, connection: 'connected', team: 'TEAM_B', room: socket.room});
+					rooms[i].players.push({id: socket.id, username: socket.username, connection: true, team: 'TEAM_B', room: socket.room});
 					socket.emit('my player', {id: socket.id, username: socket.username, team: 'TEAM_B'});
 				};
 				if(rooms[i].players.length == rooms[i].maxLenght){
@@ -65,12 +65,24 @@ io.on('connection', (socket) => {
 				socket.broadcast.to(socket.room).emit('update players', data);
 			});
 
+			socket.on('update score', data => {
+				socket.broadcast.to(socket.room).emit('update score', data);
+			});
+
+			socket.on('update FLAG_A', data => {
+				socket.broadcast.to(socket.room).emit('update FLAG_A', data);
+			});
+
+			socket.on('update FLAG_B', data => {
+				socket.broadcast.to(socket.room).emit('update FLAG_B', data);
+			});
+
 			socket.on('disconnect', async () => {
 				if(rooms[socket.room].players.length < rooms[socket.room].maxLenght){
 					rooms[socket.room].players = rooms[socket.room].players.filter(function(player) { return player.id != socket.id });
 					socket.broadcast.to(socket.room).emit('user left room', {id: socket.id});
 				} else {
-					socket.broadcast.to(socket.room).emit('user left', {id: socket.id, connection: 'disconnected'});
+					socket.broadcast.to(socket.room).emit('user left', {id: socket.id, connection: false});
 				};
 			});
 		});

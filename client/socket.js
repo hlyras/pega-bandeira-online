@@ -36,6 +36,23 @@ socket.on('update players', data => {
 	};
 });
 
+socket.on('update FLAG_A', data => {
+	FLAG.TEAM_A.player = data.id;
+	FLAG.TEAM_A.x = data.x;
+	FLAG.TEAM_A.y = data.y;
+});
+
+socket.on('update FLAG_B', data => {
+	FLAG.TEAM_B.player = data.id;
+	FLAG.TEAM_B.x = data.x;
+	FLAG.TEAM_B.y = data.y;
+});
+
+socket.on('update score', data => {
+	SCORE.TEAM_A = data.TEAM_A;
+	SCORE.TEAM_B = data.TEAM_B;
+});
+
 socket.on('user left room', (data) => {
 	let connectedPlayers = [];
 	for(i in players){
